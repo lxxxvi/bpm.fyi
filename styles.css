@@ -1,3 +1,7 @@
 * { text-align: center; }
+button { width: 100%; margin: 30px 0; }
 input { display: none; }
 output { font-size: 6.0rem; display: block; }
+img { width: 20px; }
+h1 { font-size: 2rem; margin: 30px 0;}
+p { font-size: 0.8rem; }

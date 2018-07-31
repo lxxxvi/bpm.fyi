@@ -1,4 +1,4 @@
-var cacheName = 'bpm-v1';
+var cacheName = 'bpm-v2';
 var filesToCache = [
   '/',
   '/index.html',

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded",function(){
+document.addEventListener("DOMContentLoaded", function(){
   const click = ((document.ontouchstart !== null) ? 'click' : 'touchstart');
   const bpmButton = document.querySelector("button");
   const timestamp = document.querySelector("input");
