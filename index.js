@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", function(){
   const click = ((document.ontouchstart !== null) ? 'click' : 'touchstart');
-  const bpmButton = document.querySelector("button");
+  const bpmButton = document.querySelector("button.tap");
   const timestamp = document.querySelector("input");
   const bpmOutput = document.querySelector("output");
+  const bpmHistoryElements = document.querySelectorAll('.input-output .history output');
+  const bpmAverage = document.querySelector('.input-output .average output');
   const MILISECONDS_IN_A_MINUTE = 60000;
 
   const refresh = function() {
@@ -12,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
     setBpm(bpm);
     setTimestamp(nextTimestamp);
+    updateHistory(bpm);
+    updateAverage();
   }
 
   const calculateBpm = function(previousTimestamp, nextTimestamp) {
@@ -37,6 +41,43 @@ document.addEventListener("DOMContentLoaded", function(){
 
   const setTimestamp = function(value) {
     timestamp.value = value;
+  }
+
+  const updateHistory = function(newestBpm) {
+    bpmHistoryElements.forEach(function(bpmHistoryElement) {
+      let nextElement = bpmHistoryElement.nextElementSibling;
+
+      if (nextElement != null) {
+        newValue = nextElement.value;
+      } else {
+        newValue = newestBpm;
+      }
+
+      bpmHistoryElement.value = newValue;
+    });
+  }
+
+  const updateAverage = function() {
+    let arr = [];
+
+    bpmHistoryElements.forEach(function(bpmHistoryElement) {
+      let number = parseInt(bpmHistoryElement.value) || 0;
+
+      if (number > 0) {
+        arr.push(number);
+      }
+    });
+
+    bpmAverage.value = parseInt(avg(arr));
+  }
+
+  const avg = function(numbers) {
+    let total = 0;
+    for (i = 0; i < numbers.length; i += 1) {
+      total = total + numbers[i];
+    }
+
+    return total / numbers.length;
   }
 
   bpmButton.addEventListener(click, refresh, { passive: false });

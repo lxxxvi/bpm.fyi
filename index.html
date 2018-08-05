@@ -9,8 +9,6 @@
     <meta name="description" content="BPM - Beats per Minute">
     <meta name="keywords" content="BPM,Beats,Per,Minute,Beats Per Minute,Music,Speed,Audio,Velocity,Fast,Slow,60bpm,70bpm,80bpm,90bpm,100bpm,110bpm,120bpm">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript" src="index.js"></script>
   </head>
@@ -18,15 +16,42 @@
     <!--[if lte IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
     <![endif]-->
-    <h1>BPM</h1>
-    <output name="bpm" for="tapped speed">&nbsp;</output>
-    <button>Tap</button>
-    <input type="text" />
+    <div class="content">
+      <div class="title">
+        <h1>BPM</h1>
+      </div>
 
-    <img src="github.svg" />
-    <p>
-      <a href="https://github.com/lxxxvi/bpm.fyi">Hosted on GitHub</a>
-    </p>
+      <div class="input-output">
+        <input type="text" />
+        <div class="current">
+          <output name="bpm" for="tapped speed">&nbsp;</output>
+        </div>
+
+        <div class="history">
+          <output name="bpm_history_1" for="tapped speed">&nbsp;</output>
+          <output name="bpm_history_2" for="tapped speed">&nbsp;</output>
+          <output name="bpm_history_3" for="tapped speed">&nbsp;</output>
+          <output name="bpm_history_4" for="tapped speed">&nbsp;</output>
+          <output name="bpm_history_5" for="tapped speed">&nbsp;</output>
+        </div>
+
+        <div class="average">
+          <output name="bpm_average" for="last 5 taps">&nbsp;</output>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button class="tap">Tap</button>
+        <button>Reset</button>
+      </div>
+
+      <div class="credits">
+        <img src="github.svg" />
+        <p>
+          <a href="https://github.com/lxxxvi/bpm.fyi">Hosted on GitHub</a>
+        </p>
+      <div>
+    </div>
 
     <script type="text/javascript">
       if ('serviceWorker' in navigator) {
