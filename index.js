@@ -1,46 +1,49 @@
 document.addEventListener("DOMContentLoaded", function(){
-  const click = ((document.ontouchstart !== null) ? 'click' : 'touchstart');
-  const bpmButton = document.querySelector("button.tap");
-  const timestamp = document.querySelector("input");
-  const bpmOutput = document.querySelector("output");
-  const bpmHistoryElements = document.querySelectorAll('.input-output .history output');
-  const bpmAverage = document.querySelector('.input-output .average output');
   const MILISECONDS_IN_A_MINUTE = 60000;
+  const click = ((document.ontouchstart !== null) ? 'click' : 'touchstart');
+
+  // Elements
+  const tapButton           = document.querySelector("button.tap");
+  const resetButton         = document.querySelector("button.reset");
+  const previousTimestamp   = document.querySelector("input.previous-timestamp");
+  const bpmHistoryElements  = document.querySelectorAll('.output .history output');
+  const bpmAverage          = document.querySelector('.output .average output');
+  const infoElement         = document.querySelector('.output .info');
 
   const refresh = function() {
-    let nextTimestamp = Date.now();
+    let currentTimestamp = Date.now();
     let previousTimestamp = getPreviousTimestamp();
-    let bpm = calculateBpm(previousTimestamp, nextTimestamp);
+    let bpm = calculateBpm(previousTimestamp, currentTimestamp);
 
-    setBpm(bpm);
-    setTimestamp(nextTimestamp);
+    updatePreviousTimestamp(currentTimestamp);
     updateHistory(bpm);
     updateAverage();
+    clearInfoElement();
   }
 
-  const calculateBpm = function(previousTimestamp, nextTimestamp) {
+  const calculateBpm = function(previousTimestamp, currentTimestamp) {
     let previous = parseInt(previousTimestamp) || 0;
-    let next     = parseInt(nextTimestamp) || 0;
+    let current  = parseInt(currentTimestamp) || 0;
 
-    if (previous > 0 && next > 0) {
-      let milisecondsDifference = (next - previous);
+    if (previous > 0 && current > 0) {
+      let milisecondsDifference = (current - previous);
+      let bpm = Math.round(MILISECONDS_IN_A_MINUTE / milisecondsDifference);
 
-      return Math.round(MILISECONDS_IN_A_MINUTE / milisecondsDifference);
+      if (bpm > 10) {
+        return bpm;
+      }
     }
 
-    return '...';
-  }
-
-  const setBpm = function(value) {
-    bpmOutput.value = value;
+    reset();
+    return '';
   }
 
   const getPreviousTimestamp = function() {
-    return timestamp.value;
+    return previousTimestamp.value;
   }
 
-  const setTimestamp = function(value) {
-    timestamp.value = value;
+  const updatePreviousTimestamp = function(value) {
+    previousTimestamp.value = value;
   }
 
   const updateHistory = function(newestBpm) {
@@ -68,17 +71,44 @@ document.addEventListener("DOMContentLoaded", function(){
       }
     });
 
-    bpmAverage.value = parseInt(avg(arr));
+    bpmAverage.value = avg(arr);
   }
 
   const avg = function(numbers) {
+    console.log(numbers);
+    if (numbers.length < 1) {
+      return '...';
+    }
+
     let total = 0;
     for (i = 0; i < numbers.length; i += 1) {
       total = total + numbers[i];
     }
 
-    return total / numbers.length;
+    return parseInt(total / numbers.length);
   }
 
-  bpmButton.addEventListener(click, refresh, { passive: false });
+  const reset = function() {
+    bpmHistoryElements.forEach(resetElement);
+    resetElement(bpmAverage);
+    resetElement(previousTimestamp);
+    initializeInfoElement();
+  }
+
+  const resetElement = function(element) {
+    element.value = "";
+  }
+
+  const initializeInfoElement = function() {
+    infoElement.innerHTML = 'Start tapping';
+  }
+
+  const clearInfoElement = function() {
+    infoElement.innerHTML = '';
+  }
+
+  tapButton.addEventListener(click, refresh, { passive: false });
+  resetButton.addEventListener(click, reset, { passive: false });
+
+  reset();
 });

@@ -16,17 +16,18 @@
     <!--[if lte IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
     <![endif]-->
+    <input type="text" class="previous-timestamp hidden" />
     <div class="content">
       <div class="title">
         <h1>BPM</h1>
       </div>
 
-      <div class="input-output">
-        <input type="text" />
-        <div class="current">
-          <output name="bpm" for="tapped speed">&nbsp;</output>
+      <div class="output">
+        <div class="info">
         </div>
-
+        <div class="average">
+          <output name="bpm_average" for="last 5 taps">&nbsp;</output>
+        </div>
         <div class="history">
           <output name="bpm_history_1" for="tapped speed">&nbsp;</output>
           <output name="bpm_history_2" for="tapped speed">&nbsp;</output>
@@ -34,22 +35,20 @@
           <output name="bpm_history_4" for="tapped speed">&nbsp;</output>
           <output name="bpm_history_5" for="tapped speed">&nbsp;</output>
         </div>
-
-        <div class="average">
-          <output name="bpm_average" for="last 5 taps">&nbsp;</output>
-        </div>
       </div>
 
       <div class="buttons">
         <button class="tap">Tap</button>
-        <button>Reset</button>
+        <button class="reset">Reset</button>
       </div>
 
       <div class="credits">
-        <img src="github.svg" />
-        <p>
-          <a href="https://github.com/lxxxvi/bpm.fyi">Hosted on GitHub</a>
-        </p>
+          <div class="github">
+            <img src="github.svg" />
+            <p>
+              <a href="https://github.com/lxxxvi/bpm.fyi">Hosted on GitHub</a>
+            </p>
+        </div>
       <div>
     </div>
 
