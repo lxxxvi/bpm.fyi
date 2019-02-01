@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function(){
     updatePreviousTimestamp(currentTimestamp);
     updateHistory(bpm);
     updateAverage();
-    clearInfoElement();
+    updateInfoElement();
   }
 
   const calculateBpm = function(previousTimestamp, currentTimestamp) {
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
   }
 
-  const updateAverage = function() {
+  const bpmHistoryElementValues = function() {
     let arr = [];
 
     bpmHistoryElements.forEach(function(bpmHistoryElement) {
@@ -71,7 +71,13 @@ document.addEventListener("DOMContentLoaded", function(){
       }
     });
 
-    bpmAverage.value = avg(arr);
+    return arr;
+  }
+
+  const updateAverage = function() {
+    let values = bpmHistoryElementValues();
+
+    bpmAverage.value = avg(values);
   }
 
   const avg = function(numbers) {
@@ -92,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(){
     bpmHistoryElements.forEach(resetElement);
     resetElement(bpmAverage);
     resetElement(previousTimestamp);
-    initializeInfoElement();
+    updateInfoElement();
   }
 
   const resetElement = function(element) {
@@ -105,6 +111,16 @@ document.addEventListener("DOMContentLoaded", function(){
 
   const clearInfoElement = function() {
     infoElement.innerHTML = '';
+  }
+
+  const updateInfoElement = function() {
+    let values = bpmHistoryElementValues();
+
+    if (values.length < 1) {
+      initializeInfoElement();
+    } else {
+      clearInfoElement();
+    }
   }
 
   tapButton.addEventListener(click, refresh, { passive: false });
