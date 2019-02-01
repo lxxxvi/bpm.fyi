@@ -1,6 +1,6 @@
 * {
   text-align: center;
-  font-family: 'Helvetica', sans-serif;
+  font-family: 'Verdana', sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -9,7 +9,7 @@
   height: 100vh;
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 15% auto 25% 10%;
+  grid-template-rows: 15% auto 25%;
 }
 
 .output {
@@ -50,16 +50,6 @@
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: 50% 50%;
-}
-
-.credits {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 100%;
-}
-
-.credits .github {
-  margin: auto;
 }
 
 button {
