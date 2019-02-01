@@ -123,8 +123,16 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   }
 
+  // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+  const fixViewportHeight = function() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+
+
   tapButton.addEventListener(click, refresh, { passive: false });
   resetButton.addEventListener(click, reset, { passive: false });
 
   reset();
+  fixViewportHeight();
 });
